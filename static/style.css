@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Roboto+Serif:opsz,wght@8..144,400;8..144,700&display=swap');
+
+
+body{
+    background-image: url("/static/images/background.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    font-family: "Dancing Script", cursive;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    color: #d86b91;
+    font-size: 40px;
+}
+
+p{
+    color: #6b5b63;
+    font-size: 18px;
+}
+
+nav{
+    background-color: rgba(234, 202, 202, 0.8);
+    padding: 25px 40px;
+    margin: 10px auto 60px;
+    width: 600px;
+    border-radius: 20px;
+    text-align: center;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a{
+    color: #d86b91;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 22px;
+}
+
+nav.a:hover{
+    color: #a94d70;
+}
+
+.favourites{
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.favourites span{
+    display: inline-block;
+}
+
+.favourites:hover span{
+    font-size: 0;
+}
+
+.favourites:hover span::after{
+    content: "🩷";
+    font-size: 25px;
+}
+
+.favourite-button {
+    background-color: white !important;
+    border: 3px solid #e59fb8 !important;
+    border-radius: 50%;
+    padding: 5px !important;
+    font-size: 20px !important;
+    cursor: pointer;
+    margin-left: 8px;
+    position: relative;
+    top: 3px;
+}
+
+.favourite-button:hover {
+    background-color: #fce8ee !important;
+}
+
+.cart-button.added{
+    background-color: rgba(189, 251, 255, 0.6) !important;
+}
+
+.welcome{
+    font-family:"Dancing Script", cursive;
+    font-size: 50px;
+}
+
+.description{
+    font-family:"Roboto Serif", serif;
+}
+
+.home{
+    font-family:"Roboto Serif", serif;
+}
+.products{
+    font-family:"Roboto Serif", serif;
+}
+.cart{
+    font-family:"Roboto Serif", serif;
+}
+.about{
+    font-family:"Roboto Serif", serif;
+}
+
+.squishies{
+    font-family:"Roboto Serif", serif;
+}
+
+.keychains{
+    font-family:"Roboto Serif", serif;
+}
+
+.squishies-page, 
+.keychains-page{
+    background-image: url("/static/images/tiles.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.squishy, 
+.keychain{
+    background-color: rgba(255, 234, 234, 0.8);
+    padding: 2px 5px;
+    border-radius: 50px;
+    width: 250px;
+    margin: 30px auto;
+    text-align: center;
+
+    font-family:"Dancing Script", cursive;
+}
+
+.squishies-page img, 
+.keychains-page img{
+     width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 20px;
+    border: 3px solid #e59fb8;
+}
+
+.squishies-page .product-squishies, 
+.keychains-page .product-keychains{
+    display: inline-block;
+    width: 40%;
+    vertical-align: top;
+    margin: 20px;
+}
+
+.squishies-page .product-squishies button:not(.favourite-button), 
+.keychains-page .product-keychains button:not(.favourite-button){
+    background-color: white;
+    color: rgb(212, 161, 161);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    border: 3px solid #e59fb8;
+    font-family: "Roboto Serif", serif;
+    cursor: pointer;
+}
+
+.squishies-page .product-squishies button:not(.favourite-button):hover, 
+.keychains-page .product-keychains button:not(.favourite-button):hover {
+    background-color: #f9d0da;
+}
+
+.squishies-page p, 
+.keychains-page p{
+    background-color: rgba(255, 255, 255, 0.6);
+    color: rgb(53, 38, 27);
+    border: none;
+    padding: 10px 20px;
+    width: 140px;
+    border-radius: 25px;
+    margin: 10px auto;
+    font-size: 22px;
+    font-family: "Roboto Serif", serif;
+}
+
+.squishy-name, 
+.keychain-name{
+     background-color: rgba(189, 251, 255, 0.6);
+    color: rgb(98, 77, 63);
+    border: none;
+    padding: 10px 20px;
+    width: 250px;
+    border-radius: 25px;
+    margin: 10px auto;
+    font-size: 22px;
+    font-family: "Roboto Serif", serif;
+}
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 140px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 8px 0;
+    z-index: 1000;
+}
+
+.dropdown-content a{
+    display: block;
+    padding: 10px 15px;
+    margin: 0;
+    text-align: left;
+}
+
+.dropdown-content a:hover{
+    color: #a94d70;
+}
+
+.dropdown .dropbtn{
+    background: none !important;
+    border: none !important;
+    color: #d86b91 !important;
+    font-size: 20px !important;
+    font-family: "Roboto Serif", serif !important;
+    cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+
+/*Custom Scrollbar*/
+::-webkit-scrollbar{
+    width: 12px;
+}
+
+::-webkit-scrollbar-track{
+    background: #fce8ee;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #e59fb8;
+    border-radius: 10px;
+    border: 3px solid #fce8ee;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background: #d86b91;
+}
+
+.cart-page{
+    background-image: url("/static/images/stripe.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}

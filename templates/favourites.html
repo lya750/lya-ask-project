@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Favourites</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .favourites-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .favourite-product {
+            text-align: center;
+            padding: 15px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.75);
+            box-shadow: 0 4px 12px rgba(216, 107, 145, 0.12);
+        }
+
+        .favourite-product img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .favourite-product h2 {
+            color: #6b5b63;
+            font-size: 19px;
+        }
+
+        .favourite-product p {
+            color: #d86b91;
+            font-size: 18px;
+        }
+
+        .favourite-heart {
+            border: none;
+            background: white;
+            border-radius: 50%;
+            font-size: 25px;
+            padding: 8px 12px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .favourite-heart:hover {
+            transform: scale(1.1);
+        }
+
+        .favourite-cart-button {
+            border: none;
+            border-radius: 20px;
+            padding: 10px 18px;
+            background: rgb(212, 161, 161);
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .favourite-cart-button:hover {
+            background: #ebb7df;
+        }
+
+        .empty-favourites {
+            text-align: center;
+            color: #6b5b63;
+            font-size: 18px;
+            margin: 60px 20px;
+        }
+    </style>
+</head>
+
+<body class="favourites-page">
+
+    <nav>
+        <a href="/" class="home">Home🦢</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Products🐾</button>
+            <div class="dropdown-content">
+                <a href="/squishies">Squishies</a>
+                <a href="/keychains">Keychains</a>
+            </div>
+        </div>
+
+        <a href="/cart" class="cart">Cart🧺</a>
+
+        <a href="/favourites" class="favourites">
+            <span>🩷</span>
+        </a>
+
+        <a href="/about" class="about">About🫧</a>
+    </nav>
+
+    <h1 style="text-align: center;">My Favourites 🩷</h1>
+
+    {% if favourites %}
+
+        <div class="favourites-container">
+            {% for item in favourites %}
+                <div class="favourite-product"
+                     id="favourite-{{ loop.index }}">
+
+                    <img
+                        src="{{ url_for('static', filename='images/' ~ item.image) }}"
+                        alt="{{ item.product }}"
+                    >
+
+                    <h2>{{ item.product }}</h2>
+
+                    <p>RM{{ "%.2f"|format(item.price|float) }}</p>
+
+                    <button class="favourite-heart"
+                            type="button"
+                            onclick="removeFavourite(this)"
+                            data-product="{{ item.product }}"
+                            data-price="{{ item.price }}"
+                            data-image="{{ item.image }}">
+                        🩷
+                    </button>
+
+                    <br><br>
+
+                    <button class="favourite-cart-button"
+                            type="button"
+                            onclick="addFavouriteToCart(this)"
+                            data-product="{{ item.product }}"
+                            data-price="{{ item.price }}"
+                            data-image="{{ item.image }}">
+                        Add to Cart 🛒
+                    </button>
+
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+
+        <p class="empty-favourites">
+            No favourites yet! 🥹🩷<br>
+            Tap the heart on a product to save it here ♡
+        </p>
+
+    {% endif %}
+
+    <script>
+        async function removeFavourite(button) {
+            if (button.disabled) return;
+
+            button.disabled = true;
+
+            const card = button.closest(".favourite-product");
+
+            const formData = new URLSearchParams({
+                product: button.dataset.product,
+                price: button.dataset.price,
+                image: button.dataset.image
+            });
+
+            try {
+                const response = await fetch("/toggle_favourite", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData.toString()
+                });
+
+                if (!response.ok) {
+                    throw new Error("Could not remove favourite");
+                }
+
+                const result = (await response.text()).trim();
+
+                if (result === "removed") {
+                    card.remove();
+
+                    if (!document.querySelector(".favourite-product")) {
+                        const container =
+                            document.querySelector(".favourites-container");
+
+                        container.outerHTML = `
+                            <p class="empty-favourites">
+                                No favourites yet! 🥹🩷<br>
+                                Tap the heart on a product to save it here ♡
+                            </p>
+                        `;
+                    }
+                } else {
+                    throw new Error("Unexpected server response");
+                }
+
+            } catch (error) {
+                alert("Unable to remove favourite. Please try again.");
+                console.error(error);
+                button.disabled = false;
+            }
+        }
+
+        async function addFavouriteToCart(button) {
+            if (button.disabled) return;
+
+            button.disabled = true;
+
+            const formData = new URLSearchParams({
+                product: button.dataset.product,
+                price: button.dataset.price,
+                image: button.dataset.image,
+                action: "add"
+            });
+
+            try {
+                const response = await fetch("/toggle_cart", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData.toString()
+                });
+
+                if (!response.ok) {
+                    throw new Error("Could not update cart");
+                }
+
+                const result = (await response.text()).trim();
+
+                if (result === "added") {
+                    button.textContent = "Added! 🩷";
+                } else {
+                    throw new Error("Unexpected server response");
+                }
+
+            } catch (error) {
+                alert("Unable to add product to cart. Please try again.");
+                console.error(error);
+            } finally {
+                button.disabled = false;
+            }
+        }
+    </script>
+
+</body>
+</html>

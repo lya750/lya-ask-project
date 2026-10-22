@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .about-container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(180, 120, 150, 0.15);
+            text-align: center;
+        }
+
+        .about-container h1 {
+            color: #d86b91;
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .about-container h2 {
+            color: #d86b91;
+            margin-top: 30px;
+        }
+
+        .about-container p {
+            color: #6b5b63;
+            font-size: 17px;
+            line-height: 1.9;
+        }
+
+        .about-decoration {
+            font-size: 30px;
+            margin: 15px 0;
+        }
+
+        .about-box {
+            background: rgba(248, 218, 229, 0.55);
+            border-radius: 18px;
+            padding: 18px;
+            margin-top: 20px;
+        }
+
+        .about-box p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+     <nav>
+        <a href="/" class="home">Home🦢</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Products🐾</button>
+            <div class="dropdown-content">
+                <a href="/squishies">Squishies</a>
+                <a href="/keychains">Keychains</a>
+            </div>
+        </div>
+
+        <a href="/cart" class="cart">Cart🧺</a>
+
+        <a href="/favourites" class="favourites">
+            <span>🤍</span>
+        </a>
+
+        <a href="/about" class="about">About🫧</a>
+    </nav>
+
+
+    <div class="about-container">
+
+        <div class="about-decoration">୨୧ ‧₊˚ 🧸 ⋅ ☆</div>
+
+        <h1>About Our Shop!</h1>
+
+        <p>
+            Welcome to our little shop! ♡
+            We sell adorable squishies and cute keychains
+            for everyone who loves collecting cute things.
+        </p>
+
+        <div class="about-box">
+            <h2>🎀 What We Sell</h2>
+
+            <p>
+                From soft and squishy toys to lovely keychains,
+                we offer cute items that can brighten your day.
+                Whether you want something for your collection
+                or a little gift for someone special,
+                there's something for you here!
+            </p>
+        </div>
+
+        <div class="about-box">
+            <h2>🩷 Our Mission</h2>
+
+            <p>
+                Our mission is to make shopping fun, simple
+                and enjoyable by offering cute products at
+                affordable prices.
+            </p>
+        </div>
+
+        <div class="about-box">
+            <h2>🌷 Why Choose Us?</h2>
+
+            <p>
+                ♡ Cute and adorable products<br>
+                ♡ Affordable prices<br>
+                ♡ A simple and enjoyable shopping experience<br>
+                ♡ Little things that bring happiness
+            </p>
+        </div>
+
+        <div class="about-decoration">
+            Thank you for visiting our shop! ♡
+        </div>
+
+    </div>
+
+</body>
+</html>

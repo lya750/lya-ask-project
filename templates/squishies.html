@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Squishies</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="squishies-page">
+
+    <nav>
+        <a href="/" class="home">Home🦢</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Products🐾</button>
+            <div class="dropdown-content">
+                <a href="/squishies">Squishies</a>
+                <a href="/keychains">Keychains</a>
+            </div>
+        </div>
+
+        <a href="/cart" class="cart">Cart🧺</a>
+
+        <a href="/favourites" class="favourites">
+            <span>🤍</span>
+        </a>
+
+        <a href="/about" class="about">About🫧</a>
+    </nav>
+
+    <h1 class="squishy">Squishies 𝅄˙✦</h1>
+
+    <!-- NEEDOH -->
+    <div class="product-squishies">
+        <img src="{{ url_for('static', filename='images/needoh.jpeg') }}"
+             alt="Needoh Squishy">
+        <h2 class="squishy-name">Needoh Squishy</h2>
+        <p>RM30.00</p>
+
+        <button class="cart-button"
+                data-product="Needoh Squishy"
+                data-price="30"
+                data-image="needoh.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+
+        <button class="favourite-button"
+                data-product="Needoh Squishy"
+                data-price="30"
+                data-image="needoh.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- BUN -->
+    <div class="product-squishies">
+        <img src="{{ url_for('static', filename='images/bun.jpeg') }}"
+             alt="Bun Squishy">
+        <h2 class="squishy-name">Bun Squishy</h2>
+        <p>RM6.00</p>
+
+        <button class="cart-button"
+                data-product="Bun Squishy"
+                data-price="6"
+                data-image="bun.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+
+        <button class="favourite-button"
+                data-product="Bun Squishy"
+                data-price="6"
+                data-image="bun.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- PUSHEEN -->
+    <div class="product-squishies">
+        <img src="{{ url_for('static', filename='images/pusheensquishy.jpeg') }}"
+             alt="Pusheen Squishy">
+        <h2 class="squishy-name">Pusheen Squishy</h2>
+        <p>RM10.00</p>
+
+        <button class="cart-button"
+                data-product="Pusheen Squishy"
+                data-price="10"
+                data-image="pusheensquishy.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+
+        <button class="favourite-button"
+                data-product="Pusheen Squishy"
+                data-price="10"
+                data-image="pusheensquishy.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- STRAWBERRY -->
+    <div class="product-squishies">
+        <img src="{{ url_for('static', filename='images/strawberry.jpeg') }}"
+             alt="Strawberry Squishy">
+        <h2 class="squishy-name">Strawberry Squishy</h2>
+        <p>RM10.00</p>
+
+        <button class="cart-button"
+                data-product="Strawberry Squishy"
+                data-price="10"
+                data-image="strawberry.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+
+        <button class="favourite-button"
+                data-product="Strawberry Squishy"
+                data-price="10"
+                data-image="strawberry.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- CHEESE -->
+    <div class="product-squishies">
+        <img src="{{ url_for('static', filename='images/cheese.jpeg') }}"
+             alt="Cheese Squishy">
+        <h2 class="squishy-name">Cheese Squishy</h2>
+        <p>RM10.00</p>
+
+        <button class="cart-button"
+                data-product="Cheese Squishy"
+                data-price="10"
+                data-image="cheese.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+
+        <button class="favourite-button"
+                data-product="Cheese Squishy"
+                data-price="10"
+                data-image="cheese.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- BEAR -->
+    <div class="product-squishies">
+        <img src="{{ url_for('static', filename='images/bear.jpeg') }}"
+             alt="Bear Squishy">
+        <h2 class="squishy-name">Bear Squishy</h2>
+        <p>RM10.00</p>
+
+        <button class="cart-button"
+                data-product="Bear Squishy"
+                data-price="10"
+                data-image="bear.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+
+        <button class="favourite-button"
+                data-product="Bear Squishy"
+                data-price="10"
+                data-image="bear.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- BUTTER -->
+    <div class="product-squishies">
+        <img src="{{ url_for('static', filename='images/butter.jpeg') }}"
+             alt="Butter Squishy">
+        <h2 class="squishy-name">Butter Squishy</h2>
+        <p>RM10.00</p>
+
+        <button class="cart-button"
+                data-product="Butter Squishy"
+                data-price="10"
+                data-image="butter.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+
+        <button class="favourite-button"
+                data-product="Butter Squishy"
+                data-price="10"
+                data-image="butter.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- PAW -->
+    <div class="product-squishies">
+        <img src="{{ url_for('static', filename='images/paw.jpeg') }}"
+             alt="Paw Squishy">
+        <h2 class="squishy-name">Paw Squishy</h2>
+        <p>RM10.00</p>
+
+        <button class="cart-button"
+                data-product="Paw Squishy"
+                data-price="10"
+                data-image="paw.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+
+        <button class="favourite-button"
+                data-product="Paw Squishy"
+                data-price="10"
+                data-image="paw.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <script>
+        async function toggleFavourite(button) {
+            if (button.disabled) return;
+
+            button.disabled = true;
+
+            const wasAdded =
+                button.textContent.trim() === "🩷";
+
+            const formData = new URLSearchParams({
+                product: button.dataset.product,
+                price: button.dataset.price,
+                image: button.dataset.image
+            });
+
+            try {
+                const response = await fetch("/toggle_favourite", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData.toString()
+                });
+
+                if (!response.ok) {
+                    throw new Error("Could not update favourites");
+                }
+
+                const result = (await response.text()).trim();
+
+                if (result === "added") {
+                    button.textContent = "🩷";
+                } else if (result === "removed") {
+                    button.textContent = "🤍";
+                } else {
+                    throw new Error("Unexpected server response");
+                }
+
+            } catch (error) {
+                alert("Unable to update favourites. Please try again.");
+                console.error(error);
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        async function toggleCart(button) {
+            if (button.disabled) return;
+
+            button.disabled = true;
+
+            const wasAdded = button.classList.contains("added");
+
+            const formData = new URLSearchParams({
+                product: button.dataset.product,
+                price: button.dataset.price,
+                image: button.dataset.image,
+                action: wasAdded ? "remove" : "add"
+            });
+
+            try {
+                const response = await fetch("/toggle_cart", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData.toString()
+                });
+
+                if (!response.ok) {
+                    throw new Error("Could not update cart");
+                }
+
+                const result = (await response.text()).trim();
+
+                if (result === "added") {
+                    button.classList.add("added");
+                    button.textContent = "Added!";
+                } else if (result === "removed") {
+                    button.classList.remove("added");
+                    button.textContent = "Add to Cart";
+                } else {
+                    throw new Error("Unexpected server response");
+                }
+
+            } catch (error) {
+                alert("Unable to update your cart. Please try again.");
+                console.error(error);
+            } finally {
+                button.disabled = false;
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .cart-products {
+            max-width: 850px;
+            margin: 25px auto 130px;
+            padding: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+            background: rgba(255, 240, 245, 0.9);
+            border-radius: 18px;
+            flex-wrap: wrap;
+        }
+
+        .cart-item img {
+            width: 105px;
+            height: 105px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .cart-details {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .cart-details h2 {
+            font-size: 19px;
+        }
+
+        .cart-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #d86b91;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        .quantity-controls button {
+            border: none;
+            background: #e8b6c8;
+            border-radius: 8px;
+            padding: 6px 13px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 16px 22px;
+            background: #fff0f5;
+            box-shadow: 0 -3px 12px #00000015;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .pink-button {
+            background: #d86b91;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .pink-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: #00000065;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff8fb;
+            border-radius: 20px;
+            padding: 24px;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .modal-content h2 {
+            color: #d86b91;
+        }
+
+        .checkout-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .payment-option {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #e8b6c8;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .payment-option input {
+            accent-color: #d86b91;
+            margin-right: 8px;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .close-button {
+            float: right;
+            border: none;
+            background: transparent;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .empty-cart {
+            text-align: center;
+            margin: 50px 15px;
+        }
+
+        #checkout-message {
+            text-align: center;
+            color: #a94370;
+            font-weight: bold;
+        }
+
+        @media (max-width: 480px) {
+            .cart-item img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .bottom-bar {
+                padding: 12px;
+            }
+
+            .pink-button {
+                padding: 10px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body class="cart-page">
+
+    <nav>
+        <a href="/" class="home">Home🦢</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Products🐾</button>
+            <div class="dropdown-content">
+                <a href="/squishies">Squishies</a>
+                <a href="/keychains">Keychains</a>
+            </div>
+        </div>
+
+        <a href="/cart" class="cart">Cart🧺</a>
+
+        <a href="/favourites" class="favourites">
+            <span>🤍</span>
+        </a>
+
+        <a href="/about" class="about">About🫧</a>
+    </nav>
+
+    <h1>Shopping Cart 🧺</h1>
+
+    {% if session.get("cart") %}
+
+        <div class="cart-products" id="cart-products">
+
+            {% for item in session["cart"] %}
+
+                <div class="cart-item"
+                     data-product="{{ item.product }}"
+                     data-price="{{ item.price }}"
+                     data-quantity="{{ item.quantity }}">
+
+                    <input type="checkbox"
+                           class="cart-checkbox"
+                           aria-label="Select {{ item.product }}"
+                           onchange="updateTotal()">
+
+                    <img
+                        src="{{ url_for('static', filename='images/' ~ item.image) }}"
+                        alt="{{ item.product }}">
+
+                    <div class="cart-details">
+                        <h2>{{ item.product }}</h2>
+
+                        <p>
+                            Price: RM{{ "%.2f"|format(item.price|float) }}
+                        </p>
+
+                        <div class="quantity-controls">
+                            <button type="button"
+                                    onclick="changeQuantity(this, -1)">−</button>
+
+                            <span class="quantity">{{ item.quantity }}</span>
+
+                            <button type="button"
+                                    onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+
+                        <p>
+                            Item total: RM<span class="item-total">
+                                {{ "%.2f"|format(item.price|float * item.quantity) }}
+                            </span>
+                        </p>
+
+                        <button type="button"
+                                onclick="removeItem(this)">
+                            Remove 🗑️
+                        </button>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="bottom-bar">
+            <div>
+                <div>
+                    Selected: <span id="selected-count">0</span>
+                </div>
+                <strong>
+                    RM<span id="subtotal">0.00</span>
+                </strong>
+            </div>
+
+            <button class="pink-button"
+                    id="buy-button"
+                    onclick="openCheckout()"
+                    disabled>
+                Buy ♡
+            </button>
+        </div>
+
+    {% else %}
+
+        <div class="empty-cart">
+            <h2>Your cart is empty :c</h2>
+            <p>Go find something cute for your cart! 🩷</p>
+            <a href="/squishies">Shop Squishies</a>
+            <br><br>
+            <a href="/keychains">Shop Keychains</a>
+        </div>
+
+    {% endif %}
+
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+
+            <button class="close-button"
+                    onclick="closeCheckout()"
+                    aria-label="Close">&times;</button>
+
+            <h2>Checkout ♡</h2>
+            <div id="checkout-items"></div>
+
+            <hr>
+
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <strong>RM<span id="checkout-subtotal">0.00</span></strong>
+            </div>
+
+            <div class="summary-line">
+                <span>Shipping fee</span>
+                <strong>RM5.00</strong>
+            </div>
+
+            <div class="summary-line">
+                <strong>Total</strong>
+                <strong>RM<span id="checkout-total">5.00</span></strong>
+            </div>
+
+            <h3>Choose payment method 🎀</h3>
+
+            <label class="payment-option">
+                <input type="radio" name="payment"
+                       value="Online Banking">
+                Online Banking
+            </label>
+
+            <label class="payment-option">
+                <input type="radio" name="payment"
+                       value="E-wallet">
+                E-wallet
+            </label>
+
+            <label class="payment-option">
+                <input type="radio" name="payment"
+                       value="Cash on Delivery">
+                Cash on Delivery (COD)
+            </label>
+
+            <p id="checkout-message"></p>
+
+            <button class="pink-button"
+                    id="confirm-buy"
+                    onclick="confirmCheckout()">
+                Confirm Buy ♡
+            </button>
+
+            <button class="pink-button"
+                    onclick="closeCheckout()">
+                Cancel
+            </button>
+
+        </div>
+    </div>
+
+    <script>
+        function getSelectedItems() {
+            return Array.from(
+                document.querySelectorAll(".cart-item")
+            ).filter(item =>
+                item.querySelector(".cart-checkbox").checked
+            );
+        }
+
+        function updateTotal() {
+            let subtotal = 0;
+            let count = 0;
+
+            document.querySelectorAll(".cart-item").forEach(item => {
+                if (item.querySelector(".cart-checkbox").checked) {
+                    const price = Number(item.dataset.price);
+                    const quantity = Number(item.dataset.quantity);
+
+                    subtotal += price * quantity;
+                    count += quantity;
+                }
+            });
+
+            document.getElementById("subtotal").textContent =
+                subtotal.toFixed(2);
+
+            document.getElementById("selected-count").textContent = count;
+
+            document.getElementById("buy-button").disabled =
+                getSelectedItems().length === 0;
+        }
+
+        async function changeQuantity(button, change) {
+            const item = button.closest(".cart-item");
+            const oldQuantity = Number(item.dataset.quantity);
+            const newQuantity = oldQuantity + change;
+
+            if (newQuantity < 1 || newQuantity > 99) return;
+
+            button.disabled = true;
+
+            try {
+                const response = await fetch("/update_quantity", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({
+                        product: item.dataset.product,
+                        quantity: newQuantity
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.error || "Update failed");
+                }
+
+                item.dataset.quantity = result.quantity;
+                item.querySelector(".quantity").textContent =
+                    result.quantity;
+
+                item.querySelector(".item-total").textContent =
+                    Number(result.item_total).toFixed(2);
+
+                updateTotal();
+            } catch (error) {
+                alert("Couldn't update the quantity. Please try again.");
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        async function removeItem(button) {
+            const item = button.closest(".cart-item");
+
+            if (!confirm("Remove this product from your cart?")) return;
+
+            button.disabled = true;
+
+            try {
+                const response = await fetch("/remove_from_cart", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({
+                        product: item.dataset.product
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.error || "Remove failed");
+                }
+
+                item.remove();
+
+                if (!document.querySelector(".cart-item")) {
+                    window.location.reload();
+                    return;
+                }
+
+                updateTotal();
+            } catch (error) {
+                alert("Couldn't remove this product. Please try again.");
+                button.disabled = false;
+            }
+        }
+
+        function openCheckout() {
+            const items = getSelectedItems();
+
+            if (items.length === 0) {
+                alert("Please select at least one product!");
+                return;
+            }
+
+            let subtotal = 0;
+            let html = "";
+
+            items.forEach(item => {
+                const product = item.dataset.product;
+                const price = Number(item.dataset.price);
+                const quantity = Number(item.dataset.quantity);
+                const total = price * quantity;
+
+                subtotal += total;
+
+                const safeProduct = product.replace(/[&<>"']/g, char => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                })[char]);
+
+                html += `
+                    <div class="checkout-item">
+                        <span>${safeProduct} × ${quantity}</span>
+                        <strong>RM${total.toFixed(2)}</strong>
+                    </div>
+                `;
+            });
+
+            document.getElementById("checkout-items").innerHTML = html;
+
+            document.getElementById("checkout-subtotal").textContent =
+                subtotal.toFixed(2);
+
+            document.getElementById("checkout-total").textContent =
+                (subtotal + 5).toFixed(2);
+
+            document.getElementById("checkout-message").textContent = "";
+
+            document.getElementById("checkout-modal").classList.add("show");
+        }
+
+        function closeCheckout() {
+            document.getElementById("checkout-modal").classList.remove("show");
+        }
+
+        async function confirmCheckout() {
+            const payment = document.querySelector(
+                'input[name="payment"]:checked'
+            );
+
+            if (!payment) {
+                alert("Please choose a payment method!");
+                return;
+            }
+
+            const items = getSelectedItems();
+
+            if (items.length === 0) {
+                alert("Please select at least one product!");
+                closeCheckout();
+                return;
+            }
+
+            const products = items.map(item => item.dataset.product);
+            const confirmButton = document.getElementById("confirm-buy");
+
+            confirmButton.disabled = true;
+            confirmButton.textContent = "Processing...";
+
+            try {
+                const response = await fetch("/checkout", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        products: products,
+                        payment_method: payment.value
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.error || "Checkout failed");
+                }
+
+                document.getElementById("checkout-items").innerHTML = "";
+                document.getElementById("checkout-message").textContent =
+                    "Order placed successfully! Thank you for shopping! 🩷";
+
+                document.getElementById("checkout-subtotal").textContent =
+                    result.subtotal.toFixed(2);
+
+                document.getElementById("checkout-total").textContent =
+                    result.total.toFixed(2);
+
+                document.getElementById("checkout-items").innerHTML =
+                    "<p>Your order is confirmed. ♡</p>";
+
+                document.getElementById("checkout-modal").classList.add("show");
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2200);
+
+            } catch (error) {
+                alert(error.message || "Checkout failed. Please try again.");
+            } finally {
+                confirmButton.disabled = false;
+                confirmButton.textContent = "Confirm Buy ♡";
+            }
+        }
+
+        const checkoutModal = document.getElementById("checkout-modal");
+
+        if (checkoutModal) {
+            checkoutModal.addEventListener("click", function(event) {
+                if (event.target === checkoutModal) {
+                    closeCheckout();
+                }
+            });
+        }
+
+        updateTotal();
+    </script>
+
+</body>
+</html>

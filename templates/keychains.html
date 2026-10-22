@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keychains</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="keychains-page">
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="/" class="home">Home🦢</a>
+
+        <div class="dropdown">
+            <button class="dropbtn" type="button">Products🐾</button>
+            <div class="dropdown-content">
+                <a href="/squishies">Squishies</a>
+                <a href="/keychains">Keychains</a>
+            </div>
+        </div>
+
+        <a href="/cart" class="cart">Cart🧺</a>
+
+        <a href="/favourites" class="favourites">
+            <span>🤍</span>
+        </a>
+
+        <a href="/about" class="about">About🫧</a>
+    </nav>
+
+    <h1 class="keychain">Keychains 𝅄˙✦</h1>
+
+    <!-- PUSHEEN -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/pusheen.jpeg') }}"
+             alt="Pusheen Keychain">
+        <h2 class="keychain-name">Pusheen Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button" data-product="Pusheen Keychain"
+                data-price="10" data-image="pusheen.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button" data-product="Pusheen Keychain"
+                data-price="10" data-image="pusheen.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- MIFFY -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/miffy.jpeg') }}"
+             alt="Miffy Keychain">
+        <h2 class="keychain-name">Miffy Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button" data-product="Miffy Keychain"
+                data-price="10" data-image="miffy.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button" data-product="Miffy Keychain"
+                data-price="10" data-image="miffy.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- PUSHEEN AND STORMY -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/stormy.jpeg') }}"
+             alt="Pusheen and Stormy Keychain">
+        <h2 class="keychain-name">Pusheen and Stormy Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button"
+                data-product="Pusheen and Stormy Keychain"
+                data-price="10" data-image="stormy.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button"
+                data-product="Pusheen and Stormy Keychain"
+                data-price="10" data-image="stormy.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- KORILAKKUMA -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/korilakkuma.jpeg') }}"
+             alt="Korilakkuma Keychain">
+        <h2 class="keychain-name">Korilakkuma Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button" data-product="Korilakkuma Keychain"
+                data-price="10" data-image="korilakkuma.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button" data-product="Korilakkuma Keychain"
+                data-price="10" data-image="korilakkuma.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- MY MELODY -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/mymelody.jpeg') }}"
+             alt="My Melody Keychain">
+        <h2 class="keychain-name">My Melody Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button" data-product="My Melody Keychain"
+                data-price="10" data-image="mymelody.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button" data-product="My Melody Keychain"
+                data-price="10" data-image="mymelody.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- LITTLE LAMB -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/lamb.jpeg') }}"
+             alt="Little Lamb Keychain">
+        <h2 class="keychain-name">Little Lamb Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button" data-product="Little Lamb Keychain"
+                data-price="10" data-image="lamb.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button" data-product="Little Lamb Keychain"
+                data-price="10" data-image="lamb.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- FISH -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/fish.jpeg') }}"
+             alt="Fish Keychain">
+        <h2 class="keychain-name">Fish Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button" data-product="Fish Keychain"
+                data-price="10" data-image="fish.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button" data-product="Fish Keychain"
+                data-price="10" data-image="fish.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- COQUETTE -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/angelicpink.jpeg') }}"
+             alt="Coquette Keychain">
+        <h2 class="keychain-name">Coquette Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button" data-product="Coquette Keychain"
+                data-price="10" data-image="angelicpink.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button" data-product="Coquette Keychain"
+                data-price="10" data-image="angelicpink.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <!-- DECODEN -->
+    <div class="product-keychains">
+        <img src="{{ url_for('static', filename='images/colourful.jpeg') }}"
+             alt="Decoden Keychain">
+        <h2 class="keychain-name">Decoden Keychain</h2>
+        <p>RM10.00</p>
+        <button class="cart-button" data-product="Decoden Keychain"
+                data-price="10" data-image="colourful.jpeg"
+                onclick="toggleCart(this)">Add to Cart</button>
+        <button class="favourite-button" data-product="Decoden Keychain"
+                data-price="10" data-image="colourful.jpeg"
+                onclick="toggleFavourite(this)">🤍</button>
+    </div>
+
+    <script>
+        async function toggleFavourite(button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const formData = new URLSearchParams({
+                product: button.dataset.product,
+                price: button.dataset.price,
+                image: button.dataset.image
+            });
+
+            try {
+                const response = await fetch("/toggle_favourite", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData.toString()
+                });
+
+                if (!response.ok) {
+                    throw new Error("Favourite request failed");
+                }
+
+                const result = (await response.text()).trim();
+
+                if (result === "added") {
+                    button.textContent = "🩷";
+                } else if (result === "removed") {
+                    button.textContent = "🤍";
+                } else {
+                    throw new Error("Unexpected response");
+                }
+            } catch (error) {
+                alert("Unable to update favourites. Please try again.");
+                console.error(error);
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        async function toggleCart(button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const wasAdded = button.classList.contains("added");
+
+            const formData = new URLSearchParams({
+                product: button.dataset.product,
+                price: button.dataset.price,
+                image: button.dataset.image,
+                action: wasAdded ? "remove" : "add"
+            });
+
+            try {
+                const response = await fetch("/toggle_cart", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData.toString()
+                });
+
+                if (!response.ok) {
+                    throw new Error("Cart request failed");
+                }
+
+                const result = (await response.text()).trim();
+
+                if (result === "added") {
+                    button.classList.add("added");
+                    button.textContent = "Added!";
+                } else if (result === "removed") {
+                    button.classList.remove("added");
+                    button.textContent = "Add to Cart";
+                } else {
+                    throw new Error("Unexpected response");
+                }
+            } catch (error) {
+                alert("Unable to update your cart. Please try again.");
+                console.error(error);
+            } finally {
+                button.disabled = false;
+            }
+        }
+    </script>
+
+</body>
+</html>

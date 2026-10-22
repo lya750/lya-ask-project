@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Products</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    </head>
+
+<body class="products-page">
+
+   <nav>
+        <a href="/" class="home">Home🦢</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Products🐾</button>
+
+            <div class="dropdown-content">
+                <a href="/squishies">Squishies</a>
+                <a href="/keychains">Keychains</a>
+            </div>
+        </div>
+
+        <a href="/cart" class="cart">Cart🛒</a>
+         <a href="/favourites" class="favourites">
+            <span>🤍</span>
+        </a>
+        <a href="/about" class="about">About🤍</a>
+    </nav>
+
+
+    <h1 class="category">Choose a Category! ˶ˊᜊˋ˶</h1>
+
+    <nav class="pnav">
+        <a href="/squishies" class="squishies">Squishies</a>
+        <a href="/keychains" class="keychains">Keychains</a>
+    </nav>
+
+
+</body>
+</html>
